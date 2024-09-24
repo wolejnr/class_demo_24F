@@ -56,10 +56,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  var isChecked = false;
+  int result = 0;
+  TextEditingController _firstController = TextEditingController();
+  TextEditingController _secondController = TextEditingController();
 
-  void setNewValue() {
-
-  }
+  void setNewValue() {}
 
   void _incrementCounter() {
     setState(() {
@@ -71,6 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
+  void myFunction() {}
 
   @override
   Widget build(BuildContext context) {
@@ -109,14 +113,31 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Image.asset(
+              "images/algonquin.jpg",
+              width: 200.0,
             ),
+
+            TextField(controller: _firstController, decoration: InputDecoration(hintText: "Enter the first number"),),
+
+            TextField(controller: _secondController, decoration: InputDecoration(hintText: "Enter the second number"),),
+
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              'Result is: $result',
             ),
-            
+          
+
+            ElevatedButton(child: Text("Add"), onPressed: (){
+              setState(() {
+                var num1 = int.parse(_firstController.value.text);
+              var num2 = int.parse(_secondController.value.text);
+              result = num1 + num2;
+              });
+              
+              
+            },),
+            // TextButton(child: Text("Text Button"), onPressed: myFunction,),
+            // OutlinedButton(child: Text("Outlined Button"), onPressed: myFunction,),
           ],
         ),
       ),
