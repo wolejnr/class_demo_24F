@@ -34,8 +34,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   var isChecked = false;
   int result = 0;
-  TextEditingController _firstController = TextEditingController();
-  TextEditingController _secondController = TextEditingController();
+  final TextEditingController _firstController = TextEditingController();
+  final TextEditingController _secondController = TextEditingController();
 
   void setNewValue() {}
 
@@ -50,24 +50,24 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
+      drawer: const Drawer(
           child: Column(
         children: [Text("About Algonquin"), Text("Contact Us")],
       )),
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actions: [
-          OutlinedButton(onPressed: () {}, child: Text("Login")),
-          OutlinedButton(onPressed: () {}, child: Text("About"))
+          OutlinedButton(onPressed: () {}, child: const Text("Login")),
+          OutlinedButton(onPressed: () {}, child: const Text("About"))
         ],
-        title: Text("Algonquin College Home"),
+        title: const Text("Algonquin College Home"),
       ),
       body: Center(
           child: Stack(
         alignment: AlignmentDirectional.bottomCenter,
         children: [
           Image.asset("images/algonquin.jpg"),
-          Text(
+          const Text(
             "Algonquin College",
             style: TextStyle(color: Colors.red, fontSize: 30.0),
           ),
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onTap: (buttonIndex){
           print("Button $buttonIndex pressed");
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.camera), label: "Camera"),
           BottomNavigationBarItem(icon: Icon(Icons.add_call), label: 'Phone')
         ],
