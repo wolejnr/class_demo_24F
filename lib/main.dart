@@ -58,8 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   var isChecked = false;
   int result = 0;
-  TextEditingController _firstController = TextEditingController();
-  TextEditingController _secondController = TextEditingController();
+  final TextEditingController _firstController = TextEditingController();
+  final TextEditingController _secondController = TextEditingController();
 
   void setNewValue() {}
 
@@ -118,16 +118,16 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 200.0,
             ),
 
-            TextField(controller: _firstController, decoration: InputDecoration(hintText: "Enter the first number"),),
+            TextField(controller: _firstController, decoration: const InputDecoration(hintText: "Enter the first number"),),
 
-            TextField(controller: _secondController, decoration: InputDecoration(hintText: "Enter the second number"),),
+            TextField(controller: _secondController, decoration: const InputDecoration(hintText: "Enter the second number"),),
 
             Text(
               'Result is: $result',
             ),
           
 
-            ElevatedButton(child: Text("Add"), onPressed: (){
+            ElevatedButton(child: const Text("Add"), onPressed: (){
               setState(() {
                 var num1 = int.parse(_firstController.value.text);
               var num2 = int.parse(_secondController.value.text);
