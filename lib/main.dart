@@ -1,3 +1,6 @@
+import 'package:class_demos/database.dart';
+import 'package:class_demos/todo_dao.dart';
+import 'package:class_demos/todo_item.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -35,8 +38,25 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   
-  var items = <String>["Item 1", "Item 2", "Item 7"];
-  TextEditingController _input = TextEditingController();
+  var items = <TodoItem>[];
+  final TextEditingController _input = TextEditingController();
+
+  late ToDoDAO myDAO;
+
+  @override
+  void initState() {
+    super.initState();
+
+    $FloorAppDatabase.databaseBuilder('app_database.db').build().then((database) {
+      myDAO = database.todoDao;
+      myDAO.getAllItems().then((listOfItems){
+        setState(() {
+          items.clear();
+          items.addAll(listOfItems);
+        });
+      });
+    });
+  }
 
 
   @override
@@ -58,15 +78,23 @@ class _MyHomePageState extends State<MyHomePage> {
             
             Row(children: [
               ElevatedButton(onPressed: (){
-                setState(() {
-                  items.add(_input.value.text);
+                if(_input.value.text.isNotEmpty) {
+                  setState(() {
+                    var newItem = TodoItem(TodoItem.ID++, _input.value.text);
+                    myDAO.insertItem(newItem);
+                  items.add(newItem);
                   _input.text = "";
                 });
-              }, child: Text("Add"),),
+                } else {
+                  var snackBar = SnackBar(content: Text("Input field is required!"));
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
+                
+              }, child: const Text("Add"),),
 
               Flexible(child: TextField(
                 controller: _input,
-                decoration: InputDecoration(hintText: "Enter a todo item"),)),
+                decoration: const InputDecoration(hintText: "Enter a todo item"),)),
             ],),
 
             Expanded(
@@ -76,14 +104,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   return GestureDetector(
                     onLongPress: (){
                       setState(() {
+                        myDAO.deleteItem(items[rowNum]);
                         items.removeAt(rowNum);
                       });
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        Text("Row ${rowNum}:"),
-                        Text("${items[rowNum]}")
+                        Text("Row $rowNum:"),
+                        Text(items[rowNum].todoItem)
                       ],
                     ),
                   );
