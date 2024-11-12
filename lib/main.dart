@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   _input.text = "";
                 });
                 } else {
-                  var snackBar = SnackBar(content: Text("Input field is required!"));
+                  var snackBar = const SnackBar(content: Text("Input field is required!"));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 }
                 
