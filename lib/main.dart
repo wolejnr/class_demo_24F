@@ -76,48 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             
-            Row(children: [
-              ElevatedButton(onPressed: (){
-                if(_input.value.text.isNotEmpty) {
-                  setState(() {
-                    var newItem = TodoItem(TodoItem.ID++, _input.value.text);
-                    myDAO.insertItem(newItem);
-                  items.add(newItem);
-                  _input.text = "";
-                });
-                } else {
-                  var snackBar = const SnackBar(content: Text("Input field is required!"));
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
-                
-              }, child: const Text("Add"),),
-
-              Flexible(child: TextField(
-                controller: _input,
-                decoration: const InputDecoration(hintText: "Enter a todo item"),)),
-            ],),
-
-            Expanded(
-              child: ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (context, rowNum){
-                  return GestureDetector(
-                    onLongPress: (){
-                      setState(() {
-                        myDAO.deleteItem(items[rowNum]);
-                        items.removeAt(rowNum);
-                      });
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text("Row $rowNum:"),
-                        Text(items[rowNum].todoItem)
-                      ],
-                    ),
-                  );
-                }),
-            )
+            Text("Item")
             
           ],
         ),
